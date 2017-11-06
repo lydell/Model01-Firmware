@@ -141,7 +141,7 @@ const Key keymaps[][ROWS][COLS] PROGMEM = {
    ___, Key_K, Key_P, Key_M, Key_W, Key_Minus, ___,
    /* none */ Key_B, Key_H, Key_T, Key_R, Key_O, Key_Escape,
    ___, Key_Z, Key_F, Key_D, Key_Period, Key_Comma, ___,
-   Key_UpArrow,  Key_Enter, Key_Spacebar, Key_LeftArrow,
+   Key_UpArrow, Key_Enter, Key_Spacebar, Key_LeftArrow,
    ShiftToLayer(SYMBOL)),
 
   [SYMBOL] =  KEYMAP_STACKED
@@ -149,14 +149,14 @@ const Key keymaps[][ROWS][COLS] PROGMEM = {
    ___, Key_LessThan, Key_GreaterThan, Key_LeftCurlyBracket, Key_RightCurlyBracket, Key_Asterisk, XXX,
    Key_Ampersand, Key_LeftBracket, Key_RightBracket, Key_LeftParen, Key_RightParen, Key_At,
    ___, Key_Tilde, Key_Backtick, Key_Quote, Key_DoubleQuote, ___, XXX,
-   ___, ___, ___, ___,
+   Key_End, Key_Dollar, ___, Key_PageDown,
    ___,
 
    XXX, ___, ___, ___, ___, ___, ___,
    XXX, Key_Pound, Key_7, Key_8, Key_9, Key_Caret, ___,
    /* none */ Key_Plus, Key_4, Key_5, Key_6, Key_Equals, Key_Pipe,
    XXX, ___, Key_1, Key_2, Key_3, Key_Percent, ___,
-   ___, ___, ___, ___,
+   Key_PageUp, ___, Key_0, Key_Home,
    ___),
 
   [QWERTY] = KEYMAP_STACKED

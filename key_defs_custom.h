@@ -4,6 +4,7 @@
 #define Key_Asterisk LSHIFT(Key_8)
 #define Key_At LSHIFT(Key_2)
 #define Key_Caret LSHIFT(Key_6)
+#define Key_Dollar LSHIFT(Key_4)
 #define Key_DoubleQuote LSHIFT(Key_Quote)
 #define Key_GreaterThan LSHIFT(Key_Period)
 #define Key_LessThan LSHIFT(Key_Comma)
