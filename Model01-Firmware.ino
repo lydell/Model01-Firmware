@@ -131,29 +131,29 @@ const Key keymaps[][ROWS][COLS] PROGMEM = {
 
   [ANISHTRO] = KEYMAP_STACKED
   (LockLayer(QWERTY), ___, Key_LeftAlt, Key_LeftControl, Key_LeftShift, Key_LeftGui, Key_LEDEffectNext,
-   ___, Key_Q, Key_L, Key_U, Key_C, Key_J, ___,
+   ___, Key_Q, Key_L, Key_U, Key_C, Key_J, Key_PcApplication,
    Key_Tab, Key_A, Key_N, Key_I, Key_S, Key_V,
    ___, Key_Slash, Key_Question, Key_Y, Key_G, Key_X, ___,
    Key_RightArrow, Key_E, Key_Backspace, Key_DownArrow,
    ShiftToLayer(SYMBOL),
 
-   M(MACRO_ANY), Key_RightGui, Key_RightShift, Key_RightControl, Key_RightAlt, ___, Key_KeypadNumLock,
-   ___, Key_K, Key_P, Key_M, Key_W, Key_Minus, ___,
+   Key_ScrollLock, Key_RightGui, Key_RightShift, Key_RightControl, Key_RightAlt, ___, Key_KeypadNumLock,
+   Key_Delete, Key_K, Key_P, Key_M, Key_W, Key_Minus, ___,
    /* none */ Key_B, Key_H, Key_T, Key_R, Key_O, Key_Escape,
    ___, Key_Z, Key_F, Key_D, Key_Period, Key_Comma, ___,
    Key_UpArrow, Key_Enter, Key_Spacebar, Key_LeftArrow,
    ShiftToLayer(SYMBOL)),
 
   [SYMBOL] =  KEYMAP_STACKED
-  (___, ___, ___, ___, ___, ___, XXX,
+  (XXX, ___, ___, ___, ___, ___, XXX,
    ___, Key_LessThan, Key_GreaterThan, Key_LeftCurlyBracket, Key_RightCurlyBracket, Key_Asterisk, XXX,
    Key_Ampersand, Key_LeftBracket, Key_RightBracket, Key_LeftParen, Key_RightParen, Key_At,
    ___, Key_Tilde, Key_Backtick, Key_Quote, Key_DoubleQuote, ___, XXX,
    Key_End, Key_Dollar, ___, Key_PageDown,
    ___,
 
-   XXX, ___, ___, ___, ___, ___, ___,
-   XXX, Key_Pound, Key_7, Key_8, Key_9, Key_Caret, ___,
+   Key_PrintScreen, ___, ___, ___, ___, ___, XXX,
+   Key_Insert, Key_Pound, Key_7, Key_8, Key_9, Key_Caret, ___,
    /* none */ Key_Plus, Key_4, Key_5, Key_6, Key_Equals, Key_Pipe,
    XXX, ___, Key_1, Key_2, Key_3, Key_Percent, ___,
    Key_PageUp, ___, Key_0, Key_Home,
