@@ -56,6 +56,9 @@
 // Support for Keyboardio's internal keyboard testing mode
 #include "Kaleidoscope-Model01-TestMode.h"
 
+// Custom key definitions
+#include "key_defs_custom.h"
+
 
 /** This 'enum' is a list of all the macros used by the Model 01's firmware
   * The names aren't particularly important. What is important is that each
@@ -130,7 +133,7 @@ const Key keymaps[][ROWS][COLS] PROGMEM = {
   (LockLayer(QWERTY), ___, Key_LeftAlt, Key_LeftControl, Key_LeftShift, Key_LeftGui, Key_LEDEffectNext,
    ___, Key_Q, Key_L, Key_U, Key_C, Key_J, ___,
    Key_Tab, Key_A, Key_N, Key_I, Key_S, Key_V,
-   ___, Key_Slash, LSHIFT(Key_Slash), Key_Y, Key_G, Key_X, ___,
+   ___, Key_Slash, Key_Question, Key_Y, Key_G, Key_X, ___,
    Key_RightArrow, Key_E, Key_Backspace, Key_DownArrow,
    ShiftToLayer(SYMBOL),
 
@@ -143,16 +146,16 @@ const Key keymaps[][ROWS][COLS] PROGMEM = {
 
   [SYMBOL] =  KEYMAP_STACKED
   (___, ___, ___, ___, ___, ___, XXX,
-   ___, LSHIFT(Key_Comma), LSHIFT(Key_Period), Key_LeftCurlyBracket, Key_RightCurlyBracket, LSHIFT(Key_8), XXX,
-   LSHIFT(Key_7), Key_LeftBracket, Key_RightBracket, Key_LeftParen, Key_RightParen, LSHIFT(Key_2),
-   ___, LSHIFT(Key_Backtick), Key_Backtick, Key_Quote, LSHIFT(Key_Quote), ___, XXX,
+   ___, Key_LessThan, Key_GreaterThan, Key_LeftCurlyBracket, Key_RightCurlyBracket, Key_Asterisk, XXX,
+   Key_Ampersand, Key_LeftBracket, Key_RightBracket, Key_LeftParen, Key_RightParen, Key_At,
+   ___, Key_Tilde, Key_Backtick, Key_Quote, Key_DoubleQuote, ___, XXX,
    ___, ___, ___, ___,
    ___,
 
    XXX, ___, ___, ___, ___, ___, ___,
-   XXX, LSHIFT(Key_3), Key_7, Key_8, Key_9, LSHIFT(Key_6), ___,
-   /* none */ LSHIFT(Key_Equals), Key_4, Key_5, Key_6, Key_Equals, Key_Pipe,
-   XXX, ___, Key_1, Key_2, Key_3, LSHIFT(Key_5), ___,
+   XXX, Key_Pound, Key_7, Key_8, Key_9, Key_Caret, ___,
+   /* none */ Key_Plus, Key_4, Key_5, Key_6, Key_Equals, Key_Pipe,
+   XXX, ___, Key_1, Key_2, Key_3, Key_Percent, ___,
    ___, ___, ___, ___,
    ___),
 
