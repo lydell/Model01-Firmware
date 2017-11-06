@@ -117,7 +117,7 @@ enum { MACRO_VERSION_INFO,
   * the numbers 0, 1 and 2.
   */
 
-enum { ANISHTRO, QWERTY, FUNCTION, NUMPAD }; // layers
+enum { ANISHTRO, SYMBOL, QWERTY, FUNCTION, NUMPAD }; // layers
 
 /* This comment temporarily turns off astyle's indent enforcement
  *   so we can make the keymaps actually resemble the physical key layout better
@@ -132,14 +132,29 @@ const Key keymaps[][ROWS][COLS] PROGMEM = {
    Key_Tab, Key_A, Key_N, Key_I, Key_S, Key_V,
    ___, Key_Slash, LSHIFT(Key_Slash), Key_Y, Key_G, Key_X, ___,
    Key_RightArrow, Key_E, Key_Backspace, Key_DownArrow,
-   ShiftToLayer(FUNCTION),
+   ShiftToLayer(SYMBOL),
 
    M(MACRO_ANY), Key_RightGui, Key_RightShift, Key_RightControl, Key_RightAlt, ___, Key_KeypadNumLock,
    ___, Key_K, Key_P, Key_M, Key_W, Key_Minus, ___,
    /* none */ Key_B, Key_H, Key_T, Key_R, Key_O, Key_Escape,
    ___, Key_Z, Key_F, Key_D, Key_Period, Key_Comma, ___,
    Key_UpArrow,  Key_Enter, Key_Spacebar, Key_LeftArrow,
-   ShiftToLayer(FUNCTION)),
+   ShiftToLayer(SYMBOL)),
+
+  [SYMBOL] =  KEYMAP_STACKED
+  (___, ___, ___, ___, ___, ___, XXX,
+   ___, LSHIFT(Key_Comma), LSHIFT(Key_Period), Key_LeftCurlyBracket, Key_RightCurlyBracket, LSHIFT(Key_8), XXX,
+   LSHIFT(Key_7), Key_LeftBracket, Key_RightBracket, Key_LeftParen, Key_RightParen, LSHIFT(Key_2),
+   ___, LSHIFT(Key_Backtick), Key_Backtick, Key_Quote, LSHIFT(Key_Quote), ___, XXX,
+   ___, ___, ___, ___,
+   ___,
+
+   XXX, ___, ___, ___, ___, ___, ___,
+   XXX, LSHIFT(Key_3), Key_7, Key_8, Key_9, LSHIFT(Key_6), ___,
+   /* none */ LSHIFT(Key_Equals), Key_4, Key_5, Key_6, Key_Equals, Key_Pipe,
+   XXX, ___, Key_1, Key_2, Key_3, LSHIFT(Key_5), ___,
+   ___, ___, ___, ___,
+   ___),
 
   [QWERTY] = KEYMAP_STACKED
   (UnlockLayer(QWERTY), Key_1, Key_2, Key_3, Key_4, Key_5, Key_LEDEffectNext,
