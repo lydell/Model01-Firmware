@@ -57,7 +57,7 @@
 #include "Kaleidoscope-Model01-TestMode.h"
 
 // Support for custom "shifted keys"
-#include <Kaleidoscope-ShapeShifter.h>
+// #include <Kaleidoscope-ShapeShifter.h>
 
 // Custom key definitions
 #include "key_defs_custom.h"
@@ -77,7 +77,8 @@
   */
 
 enum { MACRO_VERSION_INFO,
-       MACRO_ANY
+       MACRO_ANY,
+       MACRO_SLASH_BACKSLASH
      };
 
 
@@ -136,7 +137,7 @@ const Key keymaps[][ROWS][COLS] PROGMEM = {
   (LockLayer(QWERTY), ___, Key_LeftAlt, Key_LeftControl, Key_LeftShift, Key_LeftGui, Key_LEDEffectNext,
    ___, Key_Q, Key_L, Key_U, Key_C, Key_J, Key_PcApplication,
    Key_Tab, Key_A, Key_N, Key_I, Key_S, Key_V,
-   ___, Key_Slash, Key_Question, Key_Y, Key_G, Key_X, ___,
+   ___, M(MACRO_SLASH_BACKSLASH), Key_Question, Key_Y, Key_G, Key_X, ___,
    Key_RightArrow, Key_E, Key_Backspace, Key_DownArrow,
    ShiftToLayer(SYMBOL),
 
@@ -215,17 +216,17 @@ const Key keymaps[][ROWS][COLS] PROGMEM = {
 /** Custom "shifted keys"
  */
 
-static const kaleidoscope::ShapeShifter::dictionary_t shape_shift_dictionary[] PROGMEM = {
-  // Non-shift: `/`, OK. Shift: `|`, wanted `\`.
-  {Key_Slash, Key_Backslash},
-  // Non-shift: `?1?1?1?1?1?1?1?1?1?1?1?1?1?1`, wanted `?`. Shift: `!`, OK.
-  {LSHIFT(Key_Slash), Key_1},
-  // Non-shift: `.`, OK. Shift: `:`, OK.
-  {Key_Period, Key_Semicolon},
-  // Non-shift: `,`, OK. Shift: `:`, wanted `;`.
-  {Key_Comma, Key_Semicolon},
-  {Key_NoKey, Key_NoKey},
-};
+// static const kaleidoscope::ShapeShifter::dictionary_t shape_shift_dictionary[] PROGMEM = {
+//   // Non-shift: `/`, OK. Shift: `|`, wanted `\`.
+//   {Key_Slash, Key_Backslash},
+//   // Non-shift: `?1?1?1?1?1?1?1?1?1?1?1?1?1?1`, wanted `?`. Shift: `!`, OK.
+//   {LSHIFT(Key_Slash), Key_1},
+//   // Non-shift: `.`, OK. Shift: `:`, OK.
+//   {Key_Period, Key_Semicolon},
+//   // Non-shift: `,`, OK. Shift: `:`, wanted `;`.
+//   {Key_Comma, Key_Semicolon},
+//   {Key_NoKey, Key_NoKey},
+// };
 
 /** versionInfoMacro handles the 'firmware version info' macro
  *  When a key bound to the macro is pressed, this macro
@@ -256,6 +257,25 @@ static void anyKeyMacro(uint8_t keyState) {
     kaleidoscope::hid::pressKey(lastKey);
 }
 
+/** Prints a `/`, or, when shift is held, a `\`.
+ */
+
+static void slashBackslashMacro(uint8_t keyState) {
+  if (keyToggledOn(keyState) || keyIsPressed(keyState)) {
+    if (
+      kaleidoscope::hid::wasModifierKeyActive(Key_LeftShift) ||
+      kaleidoscope::hid::wasModifierKeyActive(Key_RightShift)
+    ) {
+      kaleidoscope::hid::releaseKey(Key_LeftShift);
+      kaleidoscope::hid::releaseKey(Key_RightShift);
+      kaleidoscope::hid::pressKey(Key_Backslash);
+    } else {
+      kaleidoscope::hid::pressKey(Key_Slash);
+    }
+  }
+}
+
+
 
 /** macroAction dispatches keymap events that are tied to a macro
     to that macro. It takes two uint8_t parameters.
@@ -278,6 +298,10 @@ const macro_t *macroAction(uint8_t macroIndex, uint8_t keyState) {
 
   case MACRO_ANY:
     anyKeyMacro(keyState);
+    break;
+
+  case MACRO_SLASH_BACKSLASH:
+    slashBackslashMacro(keyState);
     break;
   }
   return MACRO_NONE;
@@ -358,10 +382,10 @@ void setup() {
     &Macros,
 
     // The MouseKeys plugin lets you add keys to your keymap which move the mouse.
-    &MouseKeys,
+    &MouseKeys
 
     // The ShapeShifter plugin lets you define custom "shifted keys"
-    &ShapeShifter
+    // &ShapeShifter
   );
 
   // While we hope to improve this in the future, the NumLock plugin
@@ -387,7 +411,7 @@ void setup() {
   LEDOff.activate();
 
   // Assign the dictionary to use for custom "shifted keys"
-  ShapeShifter.dictionary = shape_shift_dictionary;
+  // ShapeShifter.dictionary = shape_shift_dictionary;
 }
 
 /** loop is the second of the standard Arduino sketch functions.
