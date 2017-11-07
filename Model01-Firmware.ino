@@ -78,7 +78,10 @@
 
 enum { MACRO_VERSION_INFO,
        MACRO_ANY,
-       MACRO_SLASH_BACKSLASH
+       MACRO_SLASH_BACKSLASH,
+       MACRO_QUESTION_EXCLAMATION,
+       MACRO_PERIOD_COLON,
+       MACRO_COMMA_SEMICOLON
      };
 
 
@@ -137,14 +140,14 @@ const Key keymaps[][ROWS][COLS] PROGMEM = {
   (LockLayer(QWERTY), ___, Key_LeftAlt, Key_LeftControl, Key_LeftShift, Key_LeftGui, Key_LEDEffectNext,
    ___, Key_Q, Key_L, Key_U, Key_C, Key_J, Key_PcApplication,
    Key_Tab, Key_A, Key_N, Key_I, Key_S, Key_V,
-   ___, M(MACRO_SLASH_BACKSLASH), Key_Question, Key_Y, Key_G, Key_X, ___,
+   ___, M(MACRO_SLASH_BACKSLASH), M(MACRO_QUESTION_EXCLAMATION), Key_Y, Key_G, Key_X, ___,
    Key_RightArrow, Key_E, Key_Backspace, Key_DownArrow,
    ShiftToLayer(SYMBOL),
 
    Key_ScrollLock, Key_RightGui, Key_RightShift, Key_RightControl, Key_RightAlt, ___, Key_KeypadNumLock,
    Key_Delete, Key_K, Key_P, Key_M, Key_W, Key_Minus, ___,
    /* none */ Key_B, Key_H, Key_T, Key_R, Key_O, Key_Escape,
-   ___, Key_Z, Key_F, Key_D, Key_Period, Key_Comma, ___,
+   ___, Key_Z, Key_F, Key_D, M(MACRO_PERIOD_COLON), M(MACRO_COMMA_SEMICOLON), ___,
    Key_UpArrow, Key_Enter, Key_Spacebar, Key_LeftArrow,
    ShiftToLayer(SYMBOL)),
 
@@ -275,6 +278,46 @@ static void slashBackslashMacro(uint8_t keyState) {
   }
 }
 
+static void questionExclamationMacro(uint8_t keyState) {
+  if (keyToggledOn(keyState)) {
+    if (
+      kaleidoscope::hid::wasModifierKeyActive(Key_LeftShift) ||
+      kaleidoscope::hid::wasModifierKeyActive(Key_RightShift)
+    ) {
+      kaleidoscope::hid::pressKey(Key_1);
+    } else {
+      kaleidoscope::hid::pressKey(Key_Question);
+    }
+  }
+}
+
+static void periodColonMacro(uint8_t keyState) {
+  if (keyToggledOn(keyState)) {
+    if (
+      kaleidoscope::hid::wasModifierKeyActive(Key_LeftShift) ||
+      kaleidoscope::hid::wasModifierKeyActive(Key_RightShift)
+    ) {
+      kaleidoscope::hid::pressKey(Key_Semicolon);
+    } else {
+      kaleidoscope::hid::pressKey(Key_Period);
+    }
+  }
+}
+
+static void commaSemicolonMacro(uint8_t keyState) {
+  if (keyToggledOn(keyState)) {
+    if (
+      kaleidoscope::hid::wasModifierKeyActive(Key_LeftShift) ||
+      kaleidoscope::hid::wasModifierKeyActive(Key_RightShift)
+    ) {
+      kaleidoscope::hid::releaseKey(Key_LeftShift);
+      kaleidoscope::hid::releaseKey(Key_RightShift);
+      kaleidoscope::hid::pressKey(Key_Semicolon);
+    } else {
+      kaleidoscope::hid::pressKey(Key_Comma);
+    }
+  }
+}
 
 
 /** macroAction dispatches keymap events that are tied to a macro
@@ -302,6 +345,18 @@ const macro_t *macroAction(uint8_t macroIndex, uint8_t keyState) {
 
   case MACRO_SLASH_BACKSLASH:
     slashBackslashMacro(keyState);
+    break;
+
+  case MACRO_QUESTION_EXCLAMATION:
+    questionExclamationMacro(keyState);
+    break;
+
+  case MACRO_PERIOD_COLON:
+    periodColonMacro(keyState);
+    break;
+
+  case MACRO_COMMA_SEMICOLON:
+    commaSemicolonMacro(keyState);
     break;
   }
   return MACRO_NONE;
