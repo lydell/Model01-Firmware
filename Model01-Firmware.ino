@@ -318,11 +318,16 @@ static void commaSemicolonMacro(uint8_t keyState) {
 
 static void unicode(uint32_t lower, uint32_t upper, uint8_t keyState) {
   if (keyToggledOn(keyState)) {
-    bool shifted = (
+    if (
       kaleidoscope::hid::wasModifierKeyActive(Key_LeftShift) ||
       kaleidoscope::hid::wasModifierKeyActive(Key_RightShift)
-    );
-    Unicode.type(shifted ? upper : lower);
+    ) {
+      kaleidoscope::hid::releaseKey(Key_LeftShift);
+      kaleidoscope::hid::releaseKey(Key_RightShift);
+      Unicode.type(upper);
+    } else {
+      Unicode.type(lower);
+    }
   }
 }
 
