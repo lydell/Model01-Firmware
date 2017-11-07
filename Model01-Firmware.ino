@@ -261,7 +261,7 @@ static void anyKeyMacro(uint8_t keyState) {
  */
 
 static void slashBackslashMacro(uint8_t keyState) {
-  if (keyToggledOn(keyState) || keyIsPressed(keyState)) {
+  if (keyToggledOn(keyState)) {
     if (
       kaleidoscope::hid::wasModifierKeyActive(Key_LeftShift) ||
       kaleidoscope::hid::wasModifierKeyActive(Key_RightShift)
