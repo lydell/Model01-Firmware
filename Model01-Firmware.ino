@@ -56,6 +56,13 @@
 // Support for Keyboardio's internal keyboard testing mode
 #include "Kaleidoscope-Model01-TestMode.h"
 
+// Needed for the Unicode plugin
+#include <Kaleidoscope-HostOS.h>
+#include <Kaleidoscope/HostOS-select.h>
+
+// Support for entering unicode characters
+#include <Kaleidoscope-Unicode.h>
+
 // Custom key definitions
 #include "key_defs_custom.h"
 
@@ -78,7 +85,15 @@ enum { MACRO_VERSION_INFO,
        MACRO_SLASH_BACKSLASH,
        MACRO_QUESTION_EXCLAMATION,
        MACRO_PERIOD_COLON,
-       MACRO_COMMA_SEMICOLON
+       MACRO_COMMA_SEMICOLON,
+       MACRO_ARING,
+       MACRO_ADOTS,
+       MACRO_ODOTS,
+       MACRO_EACUTE,
+       MACRO_QUOTES,
+       MACRO_DOUBLE_QUOTES,
+       MACRO_ENDASH,
+       MACRO_EMDASH
      };
 
 
@@ -134,17 +149,17 @@ enum { ANISHTRO, SYMBOL, QWERTY, FUNCTION, NUMPAD }; // layers
 const Key keymaps[][ROWS][COLS] PROGMEM = {
 
   [ANISHTRO] = KEYMAP_STACKED
-  (LockLayer(QWERTY), ___, Key_LeftAlt, Key_LeftControl, Key_LeftShift, Key_LeftGui, Key_LEDEffectNext,
-   ___, Key_Q, Key_L, Key_U, Key_C, Key_J, Key_PcApplication,
+  (LockLayer(QWERTY), M(MACRO_EACUTE), Key_LeftAlt, Key_LeftControl, Key_LeftShift, Key_LeftGui, Key_LEDEffectNext,
+   M(MACRO_DOUBLE_QUOTES), Key_Q, Key_L, Key_U, Key_C, Key_J, Key_PcApplication,
    Key_Tab, Key_A, Key_N, Key_I, Key_S, Key_V,
-   ___, M(MACRO_SLASH_BACKSLASH), M(MACRO_QUESTION_EXCLAMATION), Key_Y, Key_G, Key_X, ___,
+   M(MACRO_ADOTS), M(MACRO_SLASH_BACKSLASH), M(MACRO_QUESTION_EXCLAMATION), Key_Y, Key_G, Key_X, ___,
    Key_RightArrow, Key_E, Key_Backspace, Key_DownArrow,
    ShiftToLayer(SYMBOL),
 
-   Key_ScrollLock, Key_RightGui, Key_RightShift, Key_RightControl, Key_RightAlt, ___, Key_KeypadNumLock,
-   Key_Delete, Key_K, Key_P, Key_M, Key_W, Key_Minus, ___,
+   Key_ScrollLock, Key_RightGui, Key_RightShift, Key_RightControl, Key_RightAlt, M(MACRO_ARING), Key_KeypadNumLock,
+   Key_Delete, Key_K, Key_P, Key_M, Key_W, Key_Minus, M(MACRO_QUOTES),
    /* none */ Key_B, Key_H, Key_T, Key_R, Key_O, Key_Escape,
-   ___, Key_Z, Key_F, Key_D, M(MACRO_PERIOD_COLON), M(MACRO_COMMA_SEMICOLON), ___,
+   ___, Key_Z, Key_F, Key_D, M(MACRO_PERIOD_COLON), M(MACRO_COMMA_SEMICOLON), M(MACRO_ODOTS),
    Key_UpArrow, Key_Enter, Key_Spacebar, Key_LeftArrow,
    ShiftToLayer(SYMBOL)),
 
@@ -152,14 +167,14 @@ const Key keymaps[][ROWS][COLS] PROGMEM = {
   (XXX, ___, ___, ___, ___, ___, XXX,
    ___, Key_LessThan, Key_GreaterThan, Key_LeftCurlyBracket, Key_RightCurlyBracket, Key_Asterisk, XXX,
    Key_Ampersand, Key_LeftBracket, Key_RightBracket, Key_LeftParen, Key_RightParen, Key_At,
-   ___, Key_Tilde, Key_Backtick, Key_Quote, Key_DoubleQuote, ___, XXX,
+   ___, Key_Tilde, Key_Backtick, Key_Quote, Key_DoubleQuote, M(MACRO_EMDASH), XXX,
    Key_End, Key_Dollar, ___, Key_PageDown,
    ___,
 
    Key_PrintScreen, ___, ___, ___, ___, ___, XXX,
    Key_Insert, Key_Pound, Key_7, Key_8, Key_9, Key_Caret, ___,
    /* none */ Key_Plus, Key_4, Key_5, Key_6, Key_Equals, Key_Pipe,
-   XXX, ___, Key_1, Key_2, Key_3, Key_Percent, ___,
+   XXX, M(MACRO_ENDASH), Key_1, Key_2, Key_3, Key_Percent, ___,
    Key_PageUp, ___, Key_0, Key_Home,
    ___),
 
@@ -242,7 +257,7 @@ static void anyKeyMacro(uint8_t keyState) {
     kaleidoscope::hid::pressKey(lastKey);
 }
 
-/** Prints a `/`, or, when shift is held, a `\`.
+/** Below are "macros" for typing different characters based on the shift key
  */
 
 static void slashBackslashMacro(uint8_t keyState) {
@@ -301,6 +316,16 @@ static void commaSemicolonMacro(uint8_t keyState) {
   }
 }
 
+static void unicode(uint32_t lower, uint32_t upper, uint8_t keyState) {
+  if (keyToggledOn(keyState)) {
+    bool shifted = (
+      kaleidoscope::hid::wasModifierKeyActive(Key_LeftShift) ||
+      kaleidoscope::hid::wasModifierKeyActive(Key_RightShift)
+    );
+    Unicode.type(shifted ? upper : lower);
+  }
+}
+
 
 /** macroAction dispatches keymap events that are tied to a macro
     to that macro. It takes two uint8_t parameters.
@@ -339,6 +364,38 @@ const macro_t *macroAction(uint8_t macroIndex, uint8_t keyState) {
 
   case MACRO_COMMA_SEMICOLON:
     commaSemicolonMacro(keyState);
+    break;
+
+  case MACRO_ARING:
+    unicode(0x00e5, 0x00c5, keyState);
+    break;
+
+  case MACRO_ADOTS:
+    unicode(0x00e4, 0x00c4, keyState);
+    break;
+
+  case MACRO_ODOTS:
+    unicode(0x00f6, 0x00d6, keyState);
+    break;
+
+  case MACRO_EACUTE:
+    unicode(0x00e9, 0x00c9, keyState);
+    break;
+
+  case MACRO_QUOTES:
+    unicode(0x2019, 0x2018, keyState);
+    break;
+
+  case MACRO_DOUBLE_QUOTES:
+    unicode(0x201d, 0x201c, keyState);
+    break;
+
+  case MACRO_ENDASH:
+    unicode(0x2013, 0x2013, keyState);
+    break;
+
+  case MACRO_EMDASH:
+    unicode(0x2014, 0x2014, keyState);
     break;
   }
   return MACRO_NONE;
@@ -419,7 +476,10 @@ void setup() {
     &Macros,
 
     // The MouseKeys plugin lets you add keys to your keymap which move the mouse.
-    &MouseKeys
+    &MouseKeys,
+
+    // Unicode character input
+    &Unicode
   );
 
   // While we hope to improve this in the future, the NumLock plugin
