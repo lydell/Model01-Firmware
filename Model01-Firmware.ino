@@ -56,9 +56,6 @@
 // Support for Keyboardio's internal keyboard testing mode
 #include "Kaleidoscope-Model01-TestMode.h"
 
-// Support for custom "shifted keys"
-// #include <Kaleidoscope-ShapeShifter.h>
-
 // Custom key definitions
 #include "key_defs_custom.h"
 
@@ -215,21 +212,6 @@ const Key keymaps[][ROWS][COLS] PROGMEM = {
 
 /* Re-enable astyle's indent enforcement */
 // *INDENT-ON*
-
-/** Custom "shifted keys"
- */
-
-// static const kaleidoscope::ShapeShifter::dictionary_t shape_shift_dictionary[] PROGMEM = {
-//   // Non-shift: `/`, OK. Shift: `|`, wanted `\`.
-//   {Key_Slash, Key_Backslash},
-//   // Non-shift: `?1?1?1?1?1?1?1?1?1?1?1?1?1?1`, wanted `?`. Shift: `!`, OK.
-//   {LSHIFT(Key_Slash), Key_1},
-//   // Non-shift: `.`, OK. Shift: `:`, OK.
-//   {Key_Period, Key_Semicolon},
-//   // Non-shift: `,`, OK. Shift: `:`, wanted `;`.
-//   {Key_Comma, Key_Semicolon},
-//   {Key_NoKey, Key_NoKey},
-// };
 
 /** versionInfoMacro handles the 'firmware version info' macro
  *  When a key bound to the macro is pressed, this macro
@@ -438,9 +420,6 @@ void setup() {
 
     // The MouseKeys plugin lets you add keys to your keymap which move the mouse.
     &MouseKeys
-
-    // The ShapeShifter plugin lets you define custom "shifted keys"
-    // &ShapeShifter
   );
 
   // While we hope to improve this in the future, the NumLock plugin
@@ -464,9 +443,6 @@ void setup() {
   // This avoids over-taxing devices that don't have a lot of power to share
   // with USB devices
   LEDOff.activate();
-
-  // Assign the dictionary to use for custom "shifted keys"
-  // ShapeShifter.dictionary = shape_shift_dictionary;
 }
 
 /** loop is the second of the standard Arduino sketch functions.
