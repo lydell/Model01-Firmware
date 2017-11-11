@@ -355,19 +355,19 @@ const macro_t *macroAction(uint8_t macroIndex, uint8_t keyState) {
     break;
 
   case MACRO_QUOTE_LEFT:
-    unicode(0x2019, keyState);
-    break;
-
-  case MACRO_QUOTE_RIGHT:
     unicode(0x2018, keyState);
     break;
 
+  case MACRO_QUOTE_RIGHT:
+    unicode(0x2019, keyState);
+    break;
+
   case MACRO_DOUBLE_QUOTE_LEFT:
-    unicode(0x201d, keyState);
+    unicode(0x201c, keyState);
     break;
 
   case MACRO_DOUBLE_QUOTE_RIGHT:
-    unicode(0x201c, keyState);
+    unicode(0x201d, keyState);
     break;
 
   case MACRO_ENDASH:
