@@ -15,3 +15,5 @@
 #define Key_Pound LSHIFT(Key_3)
 #define Key_Question LSHIFT(Key_Slash)
 #define Key_Tilde LSHIFT(Key_Backtick)
+
+#define UNDECIDED XXX
