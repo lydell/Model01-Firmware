@@ -82,16 +82,18 @@
 
 enum { MACRO_VERSION_INFO,
        MACRO_ANY,
-       MACRO_SLASH_BACKSLASH,
-       MACRO_QUESTION_EXCLAMATION,
-       MACRO_PERIOD_COLON,
-       MACRO_COMMA_SEMICOLON,
-       MACRO_ARING,
-       MACRO_ADOTS,
-       MACRO_ODOTS,
-       MACRO_EACUTE,
-       MACRO_QUOTES,
-       MACRO_DOUBLE_QUOTES,
+       MACRO_ARING_LOWER,
+       MACRO_ARING_UPPER,
+       MACRO_ADOTS_LOWER,
+       MACRO_ADOTS_UPPER,
+       MACRO_ODOTS_LOWER,
+       MACRO_ODOTS_UPPER,
+       MACRO_EACUTE_LOWER,
+       MACRO_EACUTE_UPPER,
+       MACRO_QUOTE_LEFT,
+       MACRO_QUOTE_RIGHT,
+       MACRO_DOUBLE_QUOTE_LEFT,
+       MACRO_DOUBLE_QUOTE_RIGHT,
        MACRO_ENDASH,
        MACRO_EMDASH
      };
@@ -139,7 +141,7 @@ enum { MACRO_VERSION_INFO,
   * the numbers 0, 1 and 2.
   */
 
-enum { ANISHTRO, SYMBOL, QWERTY, FUNCTION, NUMPAD }; // layers
+enum { ANISHTRO, SHIFT, SYMBOL, QWERTY, FUNCTION, NUMPAD }; // layers
 
 /* This comment temporarily turns off astyle's indent enforcement
  *   so we can make the keymaps actually resemble the physical key layout better
@@ -149,29 +151,44 @@ enum { ANISHTRO, SYMBOL, QWERTY, FUNCTION, NUMPAD }; // layers
 const Key keymaps[][ROWS][COLS] PROGMEM = {
 
   [ANISHTRO] = KEYMAP_STACKED
-  (LockLayer(QWERTY), M(MACRO_EACUTE), Key_LeftAlt, Key_LeftControl, Key_LeftShift, Key_LeftGui, Key_LEDEffectNext,
-   M(MACRO_DOUBLE_QUOTES), Key_Q, Key_L, Key_U, Key_C, Key_J, Key_PcApplication,
+  (LockLayer(QWERTY), M(MACRO_EACUTE_LOWER), Key_LeftAlt, Key_LeftControl, ShiftToLayer(SHIFT), Key_LeftGui, Key_LEDEffectNext,
+   M(MACRO_DOUBLE_QUOTE_RIGHT), Key_Q, Key_L, Key_U, Key_C, Key_J, Key_PcApplication,
    Key_Tab, Key_A, Key_N, Key_I, Key_S, Key_V,
-   M(MACRO_ADOTS), M(MACRO_SLASH_BACKSLASH), M(MACRO_QUESTION_EXCLAMATION), Key_Y, Key_G, Key_X, ___,
+   M(MACRO_ADOTS_LOWER), Key_Slash, Key_Question, Key_Y, Key_G, Key_X, ___,
    Key_RightArrow, Key_E, Key_Backspace, Key_DownArrow,
    ShiftToLayer(SYMBOL),
 
-   Key_ScrollLock, Key_RightGui, Key_RightShift, Key_RightControl, Key_RightAlt, M(MACRO_ARING), Key_KeypadNumLock,
-   Key_Delete, Key_K, Key_P, Key_M, Key_W, Key_Minus, M(MACRO_QUOTES),
+   Key_ScrollLock, Key_RightGui, ShiftToLayer(SHIFT), Key_RightControl, Key_RightAlt, M(MACRO_ARING_LOWER), Key_KeypadNumLock,
+   Key_Delete, Key_K, Key_P, Key_M, Key_W, Key_Minus, M(MACRO_QUOTE_RIGHT),
    /* none */ Key_B, Key_H, Key_T, Key_R, Key_O, Key_Escape,
-   ___, Key_Z, Key_F, Key_D, M(MACRO_PERIOD_COLON), M(MACRO_COMMA_SEMICOLON), M(MACRO_ODOTS),
+   ___, Key_Z, Key_F, Key_D, Key_Period, Key_Comma, M(MACRO_ODOTS_LOWER),
    Key_UpArrow, Key_Enter, Key_Spacebar, Key_LeftArrow,
    ShiftToLayer(SYMBOL)),
 
+  [SHIFT] = KEYMAP_STACKED
+  (XXX, M(MACRO_EACUTE_UPPER), ___, ___, ___, ___, XXX,
+   M(MACRO_DOUBLE_QUOTE_LEFT), LSHIFT(Key_Q), LSHIFT(Key_L), LSHIFT(Key_U), LSHIFT(Key_C), LSHIFT(Key_J), LSHIFT(Key_PcApplication),
+   LSHIFT(Key_Tab), LSHIFT(Key_A), LSHIFT(Key_N), LSHIFT(Key_I), LSHIFT(Key_S), LSHIFT(Key_V),
+   M(MACRO_ADOTS_UPPER), Key_Backslash, Key_Exclamation, LSHIFT(Key_Y), LSHIFT(Key_G), LSHIFT(Key_X), ___,
+   LSHIFT(Key_RightArrow), LSHIFT(Key_E), LSHIFT(Key_Backspace), LSHIFT(Key_DownArrow),
+   ___,
+
+   LSHIFT(Key_ScrollLock), ___, ___, ___, ___, M(MACRO_ARING_UPPER), XXX,
+   LSHIFT(Key_Delete), LSHIFT(Key_K), LSHIFT(Key_P), LSHIFT(Key_M), LSHIFT(Key_W), LSHIFT(Key_Minus), M(MACRO_QUOTE_LEFT),
+   /* none */ LSHIFT(Key_B), LSHIFT(Key_H), LSHIFT(Key_T), LSHIFT(Key_R), LSHIFT(Key_O), LSHIFT(Key_Escape),
+   ___, LSHIFT(Key_Z), LSHIFT(Key_F), LSHIFT(Key_D), Key_Colon, Key_Semicolon, M(MACRO_ODOTS_UPPER),
+   LSHIFT(Key_UpArrow), LSHIFT(Key_Enter), LSHIFT(Key_Spacebar), LSHIFT(Key_LeftArrow),
+   ___),
+
   [SYMBOL] =  KEYMAP_STACKED
-  (XXX, ___, ___, ___, ___, ___, XXX,
+  (XXX, ___, ___, ___, Key_LeftShift, ___, XXX,
    ___, Key_LessThan, Key_GreaterThan, Key_LeftCurlyBracket, Key_RightCurlyBracket, Key_Asterisk, XXX,
    Key_Ampersand, Key_LeftBracket, Key_RightBracket, Key_LeftParen, Key_RightParen, Key_At,
    ___, Key_Tilde, Key_Backtick, Key_Quote, Key_DoubleQuote, M(MACRO_EMDASH), XXX,
    Key_End, Key_Dollar, ___, Key_PageDown,
    ___,
 
-   Key_PrintScreen, ___, ___, ___, ___, ___, XXX,
+   Key_PrintScreen, ___, Key_RightShift, ___, ___, ___, XXX,
    Key_Insert, Key_Pound, Key_7, Key_8, Key_9, Key_Caret, ___,
    /* none */ Key_Plus, Key_4, Key_5, Key_6, Key_Equals, Key_Pipe,
    XXX, M(MACRO_ENDASH), Key_1, Key_2, Key_3, Key_Percent, ___,
@@ -257,77 +274,12 @@ static void anyKeyMacro(uint8_t keyState) {
     kaleidoscope::hid::pressKey(lastKey);
 }
 
-/** Below are "macros" for typing different characters based on the shift key
+/** Input a unicode character.
  */
 
-static void slashBackslashMacro(uint8_t keyState) {
+static void unicode(uint32_t character, uint8_t keyState) {
   if (keyToggledOn(keyState)) {
-    if (
-      kaleidoscope::hid::wasModifierKeyActive(Key_LeftShift) ||
-      kaleidoscope::hid::wasModifierKeyActive(Key_RightShift)
-    ) {
-      kaleidoscope::hid::releaseKey(Key_LeftShift);
-      kaleidoscope::hid::releaseKey(Key_RightShift);
-      kaleidoscope::hid::pressKey(Key_Backslash);
-    } else {
-      kaleidoscope::hid::pressKey(Key_Slash);
-    }
-  }
-}
-
-static void questionExclamationMacro(uint8_t keyState) {
-  if (keyToggledOn(keyState)) {
-    if (
-      kaleidoscope::hid::wasModifierKeyActive(Key_LeftShift) ||
-      kaleidoscope::hid::wasModifierKeyActive(Key_RightShift)
-    ) {
-      kaleidoscope::hid::pressKey(Key_1);
-    } else {
-      kaleidoscope::hid::pressKey(Key_Question);
-    }
-  }
-}
-
-static void periodColonMacro(uint8_t keyState) {
-  if (keyToggledOn(keyState)) {
-    if (
-      kaleidoscope::hid::wasModifierKeyActive(Key_LeftShift) ||
-      kaleidoscope::hid::wasModifierKeyActive(Key_RightShift)
-    ) {
-      kaleidoscope::hid::pressKey(Key_Semicolon);
-    } else {
-      kaleidoscope::hid::pressKey(Key_Period);
-    }
-  }
-}
-
-static void commaSemicolonMacro(uint8_t keyState) {
-  if (keyToggledOn(keyState)) {
-    if (
-      kaleidoscope::hid::wasModifierKeyActive(Key_LeftShift) ||
-      kaleidoscope::hid::wasModifierKeyActive(Key_RightShift)
-    ) {
-      kaleidoscope::hid::releaseKey(Key_LeftShift);
-      kaleidoscope::hid::releaseKey(Key_RightShift);
-      kaleidoscope::hid::pressKey(Key_Semicolon);
-    } else {
-      kaleidoscope::hid::pressKey(Key_Comma);
-    }
-  }
-}
-
-static void unicode(uint32_t lower, uint32_t upper, uint8_t keyState) {
-  if (keyToggledOn(keyState)) {
-    if (
-      kaleidoscope::hid::wasModifierKeyActive(Key_LeftShift) ||
-      kaleidoscope::hid::wasModifierKeyActive(Key_RightShift)
-    ) {
-      kaleidoscope::hid::releaseKey(Key_LeftShift);
-      kaleidoscope::hid::releaseKey(Key_RightShift);
-      Unicode.type(upper);
-    } else {
-      Unicode.type(lower);
-    }
+    Unicode.type(character);
   }
 }
 
@@ -355,52 +307,60 @@ const macro_t *macroAction(uint8_t macroIndex, uint8_t keyState) {
     anyKeyMacro(keyState);
     break;
 
-  case MACRO_SLASH_BACKSLASH:
-    slashBackslashMacro(keyState);
+  case MACRO_ARING_LOWER:
+    unicode(0x00e5, keyState);
     break;
 
-  case MACRO_QUESTION_EXCLAMATION:
-    questionExclamationMacro(keyState);
+  case MACRO_ARING_UPPER:
+    unicode(0x00c5, keyState);
     break;
 
-  case MACRO_PERIOD_COLON:
-    periodColonMacro(keyState);
+  case MACRO_ADOTS_LOWER:
+    unicode(0x00e4, keyState);
     break;
 
-  case MACRO_COMMA_SEMICOLON:
-    commaSemicolonMacro(keyState);
+  case MACRO_ADOTS_UPPER:
+    unicode(0x00c4, keyState);
     break;
 
-  case MACRO_ARING:
-    unicode(0x00e5, 0x00c5, keyState);
+  case MACRO_ODOTS_LOWER:
+    unicode(0x00f6, keyState);
     break;
 
-  case MACRO_ADOTS:
-    unicode(0x00e4, 0x00c4, keyState);
+  case MACRO_ODOTS_UPPER:
+    unicode(0x00d6, keyState);
     break;
 
-  case MACRO_ODOTS:
-    unicode(0x00f6, 0x00d6, keyState);
+  case MACRO_EACUTE_LOWER:
+    unicode(0x00e9, keyState);
     break;
 
-  case MACRO_EACUTE:
-    unicode(0x00e9, 0x00c9, keyState);
+  case MACRO_EACUTE_UPPER:
+    unicode(0x00c9, keyState);
     break;
 
-  case MACRO_QUOTES:
-    unicode(0x2019, 0x2018, keyState);
+  case MACRO_QUOTE_LEFT:
+    unicode(0x2019, keyState);
     break;
 
-  case MACRO_DOUBLE_QUOTES:
-    unicode(0x201d, 0x201c, keyState);
+  case MACRO_QUOTE_RIGHT:
+    unicode(0x2018, keyState);
+    break;
+
+  case MACRO_DOUBLE_QUOTE_LEFT:
+    unicode(0x201d, keyState);
+    break;
+
+  case MACRO_DOUBLE_QUOTE_RIGHT:
+    unicode(0x201c, keyState);
     break;
 
   case MACRO_ENDASH:
-    unicode(0x2013, 0x2013, keyState);
+    unicode(0x2013, keyState);
     break;
 
   case MACRO_EMDASH:
-    unicode(0x2014, 0x2014, keyState);
+    unicode(0x2014, keyState);
     break;
   }
   return MACRO_NONE;
