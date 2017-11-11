@@ -141,7 +141,7 @@ enum { MACRO_VERSION_INFO,
   * the numbers 0, 1 and 2.
   */
 
-enum { ANISHTRO, SHIFT, SYMBOL, QWERTY, FUNCTION, NUMPAD }; // layers
+enum { ANISHTRO, SHIFT, SYMBOL, SPECIAL, QWERTY, FUNCTION, NUMPAD }; // layers
 
 /* This comment temporarily turns off astyle's indent enforcement
  *   so we can make the keymaps actually resemble the physical key layout better
@@ -154,14 +154,14 @@ const Key keymaps[][ROWS][COLS] PROGMEM = {
   (Key_PcApplication, M(MACRO_EACUTE_LOWER), Key_LeftAlt, Key_LeftControl, ShiftToLayer(SHIFT), Key_LeftGui, UNDECIDED,
    M(MACRO_DOUBLE_QUOTE_RIGHT), Key_Q, Key_L, Key_U, Key_C, Key_J, UNDECIDED,
    Key_Tab, Key_A, Key_N, Key_I, Key_S, Key_V,
-   M(MACRO_ADOTS_LOWER), Key_Slash, Key_Question, Key_Y, Key_G, Key_X, UNDECIDED,
+   M(MACRO_ADOTS_LOWER), Key_Slash, Key_Question, Key_Y, Key_G, Key_X, ShiftToLayer(SPECIAL),
    Key_RightArrow, Key_E, Key_Backspace, Key_DownArrow,
    ShiftToLayer(SYMBOL),
 
    Key_ScrollLock, Key_RightGui, ShiftToLayer(SHIFT), Key_RightControl, Key_RightAlt, M(MACRO_ARING_LOWER), UNDECIDED,
    Key_Delete, Key_K, Key_P, Key_M, Key_W, Key_Minus, M(MACRO_QUOTE_RIGHT),
    /* none */ Key_B, Key_H, Key_T, Key_R, Key_O, Key_Escape,
-   UNDECIDED, Key_Z, Key_F, Key_D, Key_Period, Key_Comma, M(MACRO_ODOTS_LOWER),
+   ShiftToLayer(SPECIAL), Key_Z, Key_F, Key_D, Key_Period, Key_Comma, M(MACRO_ODOTS_LOWER),
    Key_UpArrow, Key_Enter, Key_Spacebar, Key_LeftArrow,
    ShiftToLayer(SYMBOL)),
 
@@ -169,31 +169,46 @@ const Key keymaps[][ROWS][COLS] PROGMEM = {
   (LSHIFT(Key_PcApplication), M(MACRO_EACUTE_UPPER), ___, ___, ___, ___, UNDECIDED,
    M(MACRO_DOUBLE_QUOTE_LEFT), LSHIFT(Key_Q), LSHIFT(Key_L), LSHIFT(Key_U), LSHIFT(Key_C), LSHIFT(Key_J), UNDECIDED,
    LSHIFT(Key_Tab), LSHIFT(Key_A), LSHIFT(Key_N), LSHIFT(Key_I), LSHIFT(Key_S), LSHIFT(Key_V),
-   M(MACRO_ADOTS_UPPER), Key_Backslash, Key_Exclamation, LSHIFT(Key_Y), LSHIFT(Key_G), LSHIFT(Key_X), UNDECIDED,
+   M(MACRO_ADOTS_UPPER), Key_Backslash, Key_Exclamation, LSHIFT(Key_Y), LSHIFT(Key_G), LSHIFT(Key_X), XXX,
    LSHIFT(Key_RightArrow), LSHIFT(Key_E), LSHIFT(Key_Backspace), LSHIFT(Key_DownArrow),
-   ___,
+   XXX,
 
    LSHIFT(Key_ScrollLock), ___, ___, ___, ___, M(MACRO_ARING_UPPER), UNDECIDED,
    LSHIFT(Key_Delete), LSHIFT(Key_K), LSHIFT(Key_P), LSHIFT(Key_M), LSHIFT(Key_W), LSHIFT(Key_Minus), M(MACRO_QUOTE_LEFT),
    /* none */ LSHIFT(Key_B), LSHIFT(Key_H), LSHIFT(Key_T), LSHIFT(Key_R), LSHIFT(Key_O), LSHIFT(Key_Escape),
-   UNDECIDED, LSHIFT(Key_Z), LSHIFT(Key_F), LSHIFT(Key_D), Key_Colon, Key_Semicolon, M(MACRO_ODOTS_UPPER),
+   XXX, LSHIFT(Key_Z), LSHIFT(Key_F), LSHIFT(Key_D), Key_Colon, Key_Semicolon, M(MACRO_ODOTS_UPPER),
    LSHIFT(Key_UpArrow), LSHIFT(Key_Enter), LSHIFT(Key_Spacebar), LSHIFT(Key_LeftArrow),
-   ___),
+   XXX),
 
   [SYMBOL] =  KEYMAP_STACKED
   (LockLayer(QWERTY), ___, ___, ___, Key_LeftShift, ___, Key_LEDEffectNext,
    ___, Key_LessThan, Key_GreaterThan, Key_LeftCurlyBracket, Key_RightCurlyBracket, Key_Asterisk, Key_Insert,
    Key_Ampersand, Key_LeftBracket, Key_RightBracket, Key_LeftParen, Key_RightParen, Key_At,
-   ___, Key_Tilde, Key_Backtick, Key_Quote, Key_DoubleQuote, M(MACRO_EMDASH), UNDECIDED,
+   ___, Key_Tilde, Key_Backtick, Key_Quote, Key_DoubleQuote, M(MACRO_EMDASH), XXX,
    Key_End, Key_Dollar, ___, Key_PageDown,
    ___,
 
    M(MACRO_ANY), ___, Key_RightShift, ___, ___, ___, Key_KeypadNumLock,
    Key_PrintScreen, Key_Pound, Key_7, Key_8, Key_9, Key_Caret, ___,
    /* none */ Key_Plus, Key_4, Key_5, Key_6, Key_Equals, Key_Pipe,
-   UNDECIDED, M(MACRO_ENDASH), Key_1, Key_2, Key_3, Key_Percent, ___,
+   XXX, M(MACRO_ENDASH), Key_1, Key_2, Key_3, Key_Percent, ___,
    Key_PageUp, ___, Key_0, Key_Home,
    ___),
+
+  [SPECIAL] =  KEYMAP_STACKED
+  (Key_mouseWarpNW, Key_mouseWarpNE, ___, ___, Key_LeftShift, ___, XXX,
+   Key_mouseWarpSW, Key_mouseWarpSE, Key_mouseUpL, Key_mouseUp, Key_mouseUpR, Key_mouseWarpEnd, XXX,
+   /* Key_mouseScrollL */ XXX, Key_mouseScrollUp, Key_mouseL, Key_mouseBtnL, Key_mouseR, Key_mouseBtnR,
+   /* Key_mouseScrollR */ XXX, Key_mouseScrollDn, Key_mouseDnL, Key_mouseDn, Key_mouseDnR, Key_mouseBtnM, ___,
+   ___, ___, XXX, ___,
+   XXX,
+
+   XXX, ___, Key_RightShift, ___, ___, XXX, XXX,
+   XXX, XXX, Key_F7, Key_F8, Key_F9, Key_F12, XXX,
+   /* none */ XXX, Key_F4, Key_F5, Key_F6, Key_F11, XXX,
+   ___, XXX, Key_F1, Key_F2, Key_F3, Key_F10, XXX,
+   ___, ___, XXX, ___,
+   XXX),
 
   [QWERTY] = KEYMAP_STACKED
   (UnlockLayer(QWERTY), Key_1, Key_2, Key_3, Key_4, Key_5, Key_LEDEffectNext,
