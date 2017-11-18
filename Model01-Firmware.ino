@@ -323,6 +323,22 @@ const macro_t *macroAction(uint8_t macroIndex, uint8_t keyState) {
 
 
 
+/** Indicate that QWERTY is on. */
+
+void QWERTYLEDHook(bool post_clear) {
+  if (post_clear) {
+    return;
+  }
+
+  if (Layer.isOn(QWERTY)) {
+    LEDControl.setCrgbAt(0, 0, CRGB(255, 0, 0));
+  } else {
+    LEDControl.refreshAt(0, 0);
+  }
+}
+
+
+
 // These 'solid' color effect definitions define a rainbow of
 // LED color modes calibrated to draw 500mA or less on the
 // Keyboardio Model 01.
@@ -401,6 +417,9 @@ void setup() {
     // Unicode character input
     &Unicode
   );
+
+  // Register the loop hook defined above.
+  Kaleidoscope.useLoopHook(QWERTYLEDHook);
 
   // While we hope to improve this in the future, the NumLock plugin
   // needs to be explicitly told which keymap layer is your numpad layer
