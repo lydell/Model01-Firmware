@@ -139,33 +139,33 @@ enum { ANISHTRO, SHIFT, SYMBOL, SPECIAL, QWERTY, FUNCTION, NUMPAD }; // layers
 const Key keymaps[][ROWS][COLS] PROGMEM = {
 
   [ANISHTRO] = KEYMAP_STACKED
-  (Key_PcApplication, Key_EAcute, Key_LeftAlt, Key_LeftControl, ShiftToLayer(SHIFT), Key_LeftGui, UNDECIDED,
-   Key_RightDoubleQuoteMark, Key_Q, Key_L, Key_U, Key_C, Key_J, UNDECIDED,
+  (Key_EAcute, Key_Home, Key_PageUp, Key_PageDown, Key_End, UNDECIDED, Key_PcApplication,
+   Key_RightDoubleQuoteMark, Key_Q, Key_L, Key_U, Key_C, Key_J, Key_Delete,
    Key_Tab, Key_A, Key_N, Key_I, Key_S, Key_V,
    Key_ADiaeresis, Key_Slash, Key_Question, Key_Y, Key_G, Key_X, ShiftToLayer(SPECIAL),
-   Key_RightArrow, Key_E, Key_Backspace, Key_DownArrow,
+   ShiftToLayer(SHIFT), Key_E, Key_LeftGui, Key_LeftAlt,
    ShiftToLayer(SYMBOL),
 
-   Key_ScrollLock, Key_RightGui, ShiftToLayer(SHIFT), Key_RightControl, Key_LeftAlt, Key_ARing, UNDECIDED,
-   Key_Delete, Key_K, Key_P, Key_M, Key_W, Key_Minus, Key_RightSingleQuoteMark,
+   Key_ScrollLock, UNDECIDED, Key_LeftArrow, Key_DownArrow, Key_UpArrow, Key_RightArrow, Key_ARing,
+   Key_Backspace, Key_K, Key_P, Key_M, Key_W, Key_Minus, Key_RightSingleQuoteMark,
    /* none */ Key_B, Key_H, Key_T, Key_R, Key_O, Key_Escape,
    ShiftToLayer(SPECIAL), Key_Z, Key_F, Key_D, Key_Period, Key_Comma, Key_ODiaeresis,
-   Key_UpArrow, Key_Enter, Key_Spacebar, Key_LeftArrow,
+   Key_LeftControl, Key_Enter, Key_Spacebar, ShiftToLayer(SHIFT),
    ShiftToLayer(SYMBOL)),
 
   [SHIFT] = KEYMAP_STACKED
-  (LSHIFT(Key_PcApplication), LSHIFT(Key_EAcute), ___, ___, ___, ___, UNDECIDED,
-   Key_LeftDoubleQuoteMark, LSHIFT(Key_Q), LSHIFT(Key_L), LSHIFT(Key_U), LSHIFT(Key_C), LSHIFT(Key_J), UNDECIDED,
+  (LSHIFT(Key_EAcute), LSHIFT(Key_Home), LSHIFT(Key_PageUp), LSHIFT(Key_PageDown), LSHIFT(Key_End), UNDECIDED, LSHIFT(Key_PcApplication),
+   Key_LeftDoubleQuoteMark, LSHIFT(Key_Q), LSHIFT(Key_L), LSHIFT(Key_U), LSHIFT(Key_C), LSHIFT(Key_J), LSHIFT(Key_Delete),
    LSHIFT(Key_Tab), LSHIFT(Key_A), LSHIFT(Key_N), LSHIFT(Key_I), LSHIFT(Key_S), LSHIFT(Key_V),
    LSHIFT(Key_ADiaeresis), Key_Backslash, Key_Exclamation, LSHIFT(Key_Y), LSHIFT(Key_G), LSHIFT(Key_X), XXX,
-   LSHIFT(Key_RightArrow), LSHIFT(Key_E), LSHIFT(Key_Backspace), LSHIFT(Key_DownArrow),
+   ___, LSHIFT(Key_E), ___, ___,
    XXX,
 
-   LSHIFT(Key_ScrollLock), ___, ___, ___, ___, LSHIFT(Key_ARing), UNDECIDED,
-   LSHIFT(Key_Delete), LSHIFT(Key_K), LSHIFT(Key_P), LSHIFT(Key_M), LSHIFT(Key_W), LSHIFT(Key_Minus), Key_LeftSingleQuoteMark,
+   LSHIFT(Key_ScrollLock), UNDECIDED, LSHIFT(Key_LeftArrow), LSHIFT(Key_DownArrow), LSHIFT(Key_UpArrow), LSHIFT(Key_RightArrow), LSHIFT(Key_ARing),
+   LSHIFT(Key_Backspace), LSHIFT(Key_K), LSHIFT(Key_P), LSHIFT(Key_M), LSHIFT(Key_W), LSHIFT(Key_Minus), Key_LeftSingleQuoteMark,
    /* none */ LSHIFT(Key_B), LSHIFT(Key_H), LSHIFT(Key_T), LSHIFT(Key_R), LSHIFT(Key_O), LSHIFT(Key_Escape),
    XXX, LSHIFT(Key_Z), LSHIFT(Key_F), LSHIFT(Key_D), Key_Colon, Key_Semicolon, LSHIFT(Key_ODiaeresis),
-   LSHIFT(Key_UpArrow), LSHIFT(Key_Enter), LSHIFT(Key_Spacebar), LSHIFT(Key_LeftArrow),
+   ___, LSHIFT(Key_Enter), LSHIFT(Key_Spacebar), ___,
    XXX),
 
   [SYMBOL] =  KEYMAP_STACKED
