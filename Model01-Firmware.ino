@@ -149,8 +149,8 @@ enum {
 const Key keymaps[][ROWS][COLS] PROGMEM = {
 
   [ANISHTRO] = KEYMAP_STACKED
-  (Key_PcApplication, Key_EAcute, Key_LeftAlt, Key_LeftControl, ShiftToLayer(SHIFT), Key_LeftGui, UNDECIDED,
-   Key_RightDoubleQuoteMark, Key_Q, Key_L, Key_U, Key_C, Key_J, UNDECIDED,
+  (Key_PcApplication, Key_EAcute, Key_LeftAlt, Key_LeftControl, ShiftToLayer(SHIFT), Key_LeftGui, Key_PageUp,
+   Key_RightDoubleQuoteMark, Key_Q, Key_L, Key_U, Key_C, Key_J, Key_PageDown,
    Key_Tab, Key_A, Key_N, Key_I, Key_S, Key_V,
    Key_ADiaeresis, Key_Slash, Key_Question, Key_Y, Key_G, Key_X, ShiftToLayer(SPECIAL),
    Key_RightArrow, Key_E, Key_Backspace, Key_DownArrow,
@@ -164,8 +164,8 @@ const Key keymaps[][ROWS][COLS] PROGMEM = {
    ShiftToLayer(SYMBOL)),
 
   [SHIFT] = KEYMAP_STACKED
-  (LSHIFT(Key_PcApplication), LSHIFT(Key_EAcute), ___, ___, ___, ___, UNDECIDED,
-   Key_LeftDoubleQuoteMark, LSHIFT(Key_Q), LSHIFT(Key_L), LSHIFT(Key_U), LSHIFT(Key_C), LSHIFT(Key_J), UNDECIDED,
+  (LSHIFT(Key_PcApplication), LSHIFT(Key_EAcute), ___, ___, ___, ___, LSHIFT(Key_PageUp),
+   Key_LeftDoubleQuoteMark, LSHIFT(Key_Q), LSHIFT(Key_L), LSHIFT(Key_U), LSHIFT(Key_C), LSHIFT(Key_J), LSHIFT(Key_PageDown),
    LSHIFT(Key_Tab), LSHIFT(Key_A), LSHIFT(Key_N), LSHIFT(Key_I), LSHIFT(Key_S), LSHIFT(Key_V),
    LSHIFT(Key_ADiaeresis), Key_Backslash, Key_Exclamation, LSHIFT(Key_Y), LSHIFT(Key_G), LSHIFT(Key_X), ShiftToLayer(SHIFT_SPECIAL),
    LSHIFT(Key_RightArrow), LSHIFT(Key_E), LSHIFT(Key_Backspace), LSHIFT(Key_DownArrow),
