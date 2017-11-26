@@ -129,7 +129,17 @@ enum { MACRO_VERSION_INFO,
   * the numbers 0, 1 and 2.
   */
 
-enum { ANISHTRO, SHIFT, SYMBOL, SPECIAL, QWERTY, FUNCTION, NUMPAD }; // layers
+enum {
+  ANISHTRO,
+  SHIFT,
+  SYMBOL,
+  SHIFT_SYMBOL,
+  SPECIAL,
+  SHIFT_SPECIAL,
+  QWERTY,
+  FUNCTION,
+  NUMPAD
+};
 
 /* This comment temporarily turns off astyle's indent enforcement
  *   so we can make the keymaps actually resemble the physical key layout better
@@ -157,46 +167,76 @@ const Key keymaps[][ROWS][COLS] PROGMEM = {
   (LSHIFT(Key_PcApplication), LSHIFT(Key_EAcute), ___, ___, ___, ___, UNDECIDED,
    Key_LeftDoubleQuoteMark, LSHIFT(Key_Q), LSHIFT(Key_L), LSHIFT(Key_U), LSHIFT(Key_C), LSHIFT(Key_J), UNDECIDED,
    LSHIFT(Key_Tab), LSHIFT(Key_A), LSHIFT(Key_N), LSHIFT(Key_I), LSHIFT(Key_S), LSHIFT(Key_V),
-   LSHIFT(Key_ADiaeresis), Key_Backslash, Key_Exclamation, LSHIFT(Key_Y), LSHIFT(Key_G), LSHIFT(Key_X), XXX,
+   LSHIFT(Key_ADiaeresis), Key_Backslash, Key_Exclamation, LSHIFT(Key_Y), LSHIFT(Key_G), LSHIFT(Key_X), ShiftToLayer(SHIFT_SPECIAL),
    LSHIFT(Key_RightArrow), LSHIFT(Key_E), LSHIFT(Key_Backspace), LSHIFT(Key_DownArrow),
-   XXX,
+   ShiftToLayer(SHIFT_SYMBOL),
 
    LSHIFT(Key_ScrollLock), ___, ___, ___, ___, LSHIFT(Key_ARing), UNDECIDED,
    LSHIFT(Key_Delete), LSHIFT(Key_K), LSHIFT(Key_P), LSHIFT(Key_M), LSHIFT(Key_W), LSHIFT(Key_Minus), Key_LeftSingleQuoteMark,
    /* none */ LSHIFT(Key_B), LSHIFT(Key_H), LSHIFT(Key_T), LSHIFT(Key_R), LSHIFT(Key_O), LSHIFT(Key_Escape),
-   XXX, LSHIFT(Key_Z), LSHIFT(Key_F), LSHIFT(Key_D), Key_Colon, Key_Semicolon, LSHIFT(Key_ODiaeresis),
+   ShiftToLayer(SHIFT_SPECIAL), LSHIFT(Key_Z), LSHIFT(Key_F), LSHIFT(Key_D), Key_Colon, Key_Semicolon, LSHIFT(Key_ODiaeresis),
    LSHIFT(Key_UpArrow), LSHIFT(Key_Enter), LSHIFT(Key_Spacebar), LSHIFT(Key_LeftArrow),
-   XXX),
+   ShiftToLayer(SHIFT_SYMBOL)),
 
   [SYMBOL] =  KEYMAP_STACKED
-  (LockLayer(QWERTY), ___, ___, ___, Key_LeftShift, ___, Key_LEDEffectNext,
+  (LockLayer(QWERTY), ___, ___, ___, ShiftToLayer(SHIFT_SYMBOL), ___, Key_LEDEffectNext,
    ___, Key_LessThan, Key_GreaterThan, Key_LeftCurlyBracket, Key_RightCurlyBracket, Key_Asterisk, Key_Insert,
    Key_Ampersand, Key_LeftBracket, Key_RightBracket, Key_LeftParen, Key_RightParen, Key_At,
    ___, Key_Tilde, Key_Backtick, Key_Quote, Key_DoubleQuote, M(MACRO_EMDASH), XXX,
    Key_End, Key_Dollar, ___, Key_PageDown,
    ___,
 
-   M(MACRO_ANY), ___, Key_RightShift, ___, ___, ___, Key_KeypadNumLock,
+   M(MACRO_ANY), ___, ShiftToLayer(SHIFT_SYMBOL), ___, ___, ___, Key_KeypadNumLock,
    Key_PrintScreen, Key_Pound, Key_7, Key_8, Key_9, Key_Caret, ___,
    /* none */ Key_Plus, Key_4, Key_5, Key_6, Key_Equals, Key_Pipe,
    XXX, M(MACRO_ENDASH), Key_1, Key_2, Key_3, Key_Percent, ___,
    Key_PageUp, ___, Key_0, Key_Home,
    ___),
 
+  [SHIFT_SYMBOL] =  KEYMAP_STACKED
+  (___, ___, ___, ___, ___, ___, ___,
+   ___, ___, ___, ___, ___, ___, ___,
+   ___, ___, ___, ___, ___, ___,
+   ___, ___, ___, ___, ___, ___, ___,
+   LSHIFT(Key_End), ___, LSHIFT(Key_Backspace), LSHIFT(Key_PageDown),
+   ___,
+
+   ___, ___, ___, ___, ___, ___, ___,
+   LSHIFT(Key_PrintScreen), ___, LSHIFT(Key_7), LSHIFT(Key_8), LSHIFT(Key_9), ___, ___,
+   /* none */ ___, LSHIFT(Key_4), LSHIFT(Key_5), LSHIFT(Key_6), ___, ___,
+   ___, ___, LSHIFT(Key_1), LSHIFT(Key_2), LSHIFT(Key_3), ___, ___,
+   LSHIFT(Key_PageUp), LSHIFT(Key_Enter), LSHIFT(Key_0), LSHIFT(Key_Home),
+   ___),
+
   [SPECIAL] =  KEYMAP_STACKED
-  (Key_mouseWarpNW, Key_mouseWarpNE, ___, ___, Key_LeftShift, ___, XXX,
+  (Key_mouseWarpNW, Key_mouseWarpNE, ___, ___, ShiftToLayer(SHIFT_SPECIAL), ___, XXX,
    Key_mouseWarpSW, Key_mouseWarpSE, Key_mouseUpL, Key_mouseUp, Key_mouseUpR, Key_mouseWarpEnd, XXX,
    /* Key_mouseScrollL */ XXX, Key_mouseScrollUp, Key_mouseL, Key_mouseBtnL, Key_mouseR, Key_mouseBtnR,
    /* Key_mouseScrollR */ XXX, Key_mouseScrollDn, Key_mouseDnL, Key_mouseDn, Key_mouseDnR, Key_mouseBtnM, ___,
    ___, ___, XXX, ___,
    XXX,
 
-   XXX, ___, Key_RightShift, ___, ___, XXX, XXX,
+   XXX, ___, ShiftToLayer(SHIFT_SPECIAL), ___, ___, XXX, XXX,
    XXX, XXX, Key_F7, Key_F8, Key_F9, Key_F12, XXX,
    /* none */ XXX, Key_F4, Key_F5, Key_F6, Key_F11, XXX,
    ___, XXX, Key_F1, Key_F2, Key_F3, Key_F10, XXX,
    ___, ___, XXX, ___,
    XXX),
+
+  [SHIFT_SPECIAL] =  KEYMAP_STACKED
+  (___, ___, ___, ___, ___, ___, ___,
+   ___, ___, ___, ___, ___, ___, ___,
+   ___, ___, ___, ___, ___, ___,
+   ___, ___, ___, ___, ___, ___, ___,
+   ___, ___, ___, ___,
+   ___,
+
+   ___, ___, ___, ___, ___, ___, ___,
+   ___, ___, LSHIFT(Key_F7), LSHIFT(Key_F8), LSHIFT(Key_F9), LSHIFT(Key_F12), ___,
+   /* none */ ___, LSHIFT(Key_F4), LSHIFT(Key_F5), LSHIFT(Key_F6), LSHIFT(Key_F11), ___,
+   ___, ___, LSHIFT(Key_F1), LSHIFT(Key_F2), LSHIFT(Key_F3), LSHIFT(Key_F10), ___,
+   ___, ___, ___, ___,
+   ___),
 
   [QWERTY] = KEYMAP_STACKED
   (UnlockLayer(QWERTY), Key_1, Key_2, Key_3, Key_4, Key_5, Key_LEDEffectNext,
