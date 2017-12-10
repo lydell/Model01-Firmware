@@ -212,8 +212,8 @@ const Key keymaps[][ROWS][COLS] PROGMEM = {
   [SPECIAL] =  KEYMAP_STACKED
   (Key_mouseWarpNW, Key_mouseWarpNE, ___, ___, ShiftToLayer(SHIFT_SPECIAL), ___, XXX,
    Key_mouseWarpSW, Key_mouseWarpSE, Key_mouseUpL, Key_mouseUp, Key_mouseUpR, Key_mouseWarpEnd, Key_LeftShift,
-   /* Key_mouseScrollL */ XXX, Key_mouseScrollUp, Key_mouseL, Key_mouseBtnL, Key_mouseR, Key_mouseBtnR,
-   /* Key_mouseScrollR */ XXX, Key_mouseScrollDn, Key_mouseDnL, Key_mouseDn, Key_mouseDnR, Key_mouseBtnM, ___,
+   Key_mouseScrollL, Key_mouseScrollUp, Key_mouseL, Key_mouseBtnL, Key_mouseR, Key_mouseBtnR,
+   Key_mouseScrollR, Key_mouseScrollDn, Key_mouseDnL, Key_mouseDn, Key_mouseDnR, Key_mouseBtnM, ___,
    ___, ___, XXX, ___,
    XXX,
 
