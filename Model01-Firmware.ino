@@ -150,14 +150,14 @@ enum {
 const Key keymaps[][ROWS][COLS] PROGMEM = {
 
   [ANISHTRO] = KEYMAP_STACKED
-  (Key_PcApplication, Key_EAcute, Key_LeftAlt, Key_LeftControl, ShiftToLayer(SHIFT), Key_LeftGui, Key_PageUp,
+  (Key_LeftShift, Key_EAcute, Key_LeftAlt, Key_LeftControl, ShiftToLayer(SHIFT), Key_LeftGui, Key_PageUp,
    Key_RightDoubleQuoteMark, Key_Q, Key_L, Key_U, Key_C, Key_J, Key_PageDown,
    Key_Tab, Key_A, Key_N, Key_I, Key_S, Key_V,
    Key_ADiaeresis, Key_Slash, Key_Question, Key_Y, Key_G, Key_X, ShiftToLayer(SPECIAL),
    Key_RightArrow, Key_E, Key_Backspace, Key_DownArrow,
    ShiftToLayer(SYMBOL),
 
-   Key_ScrollLock, Key_RightGui, ShiftToLayer(SHIFT), Key_RightControl, Key_LeftAlt, Key_ARing, UNDECIDED,
+   Key_ScrollLock, Key_RightGui, ShiftToLayer(SHIFT), Key_RightControl, Key_LeftAlt, Key_ARing, Key_PcApplication,
    Key_Delete, Key_K, Key_P, Key_M, Key_W, Key_Minus, Key_RightSingleQuoteMark,
    /* none */ Key_B, Key_H, Key_T, Key_R, Key_O, Key_Escape,
    ShiftToLayer(SPECIAL), Key_Z, Key_F, Key_D, Key_Period, Key_Comma, Key_ODiaeresis,
@@ -165,14 +165,14 @@ const Key keymaps[][ROWS][COLS] PROGMEM = {
    ShiftToLayer(SYMBOL)),
 
   [SHIFT] = KEYMAP_STACKED
-  (LSHIFT(Key_PcApplication), LSHIFT(Key_EAcute), ___, ___, ___, ___, LSHIFT(Key_PageUp),
+  (Key_RightShift, LSHIFT(Key_EAcute), ___, ___, ___, ___, LSHIFT(Key_PageUp),
    Key_LeftDoubleQuoteMark, LSHIFT(Key_Q), LSHIFT(Key_L), LSHIFT(Key_U), LSHIFT(Key_C), LSHIFT(Key_J), LSHIFT(Key_PageDown),
    LSHIFT(Key_Tab), LSHIFT(Key_A), LSHIFT(Key_N), LSHIFT(Key_I), LSHIFT(Key_S), LSHIFT(Key_V),
    LSHIFT(Key_ADiaeresis), Key_Backslash, Key_Exclamation, LSHIFT(Key_Y), LSHIFT(Key_G), LSHIFT(Key_X), ShiftToLayer(SHIFT_SPECIAL),
    LSHIFT(Key_RightArrow), LSHIFT(Key_E), LSHIFT(Key_Backspace), LSHIFT(Key_DownArrow),
    ShiftToLayer(SHIFT_SYMBOL),
 
-   LSHIFT(Key_ScrollLock), ___, ___, ___, ___, LSHIFT(Key_ARing), UNDECIDED,
+   LSHIFT(Key_ScrollLock), ___, ___, ___, ___, LSHIFT(Key_ARing), LSHIFT(Key_PcApplication),
    LSHIFT(Key_Delete), LSHIFT(Key_K), LSHIFT(Key_P), LSHIFT(Key_M), LSHIFT(Key_W), LSHIFT(Key_Minus), Key_LeftSingleQuoteMark,
    /* none */ LSHIFT(Key_B), LSHIFT(Key_H), LSHIFT(Key_T), LSHIFT(Key_R), LSHIFT(Key_O), LSHIFT(Key_Escape),
    ShiftToLayer(SHIFT_SPECIAL), LSHIFT(Key_Z), LSHIFT(Key_F), LSHIFT(Key_D), Key_Colon, Key_Semicolon, LSHIFT(Key_ODiaeresis),
@@ -211,7 +211,7 @@ const Key keymaps[][ROWS][COLS] PROGMEM = {
 
   [SPECIAL] =  KEYMAP_STACKED
   (Key_mouseWarpNW, Key_mouseWarpNE, ___, ___, ShiftToLayer(SHIFT_SPECIAL), ___, XXX,
-   Key_mouseWarpSW, Key_mouseWarpSE, Key_mouseUpL, Key_mouseUp, Key_mouseUpR, Key_mouseWarpEnd, Key_LeftShift,
+   Key_mouseWarpSW, Key_mouseWarpSE, Key_mouseUpL, Key_mouseUp, Key_mouseUpR, Key_mouseWarpEnd, XXX,
    Key_mouseScrollL, Key_mouseScrollUp, Key_mouseL, Key_mouseBtnL, Key_mouseR, Key_mouseBtnR,
    Key_mouseScrollR, Key_mouseScrollDn, Key_mouseDnL, Key_mouseDn, Key_mouseDnR, Key_mouseBtnM, ___,
    ___, ___, XXX, ___,
