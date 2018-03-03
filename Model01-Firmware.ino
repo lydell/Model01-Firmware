@@ -59,16 +59,6 @@
 // Support for host power management (suspend & wakeup)
 #include "Kaleidoscope-HostPowerManagement.h"
 
-// Needed for the Unicode plugin
-#include <Kaleidoscope-HostOS.h>
-#include <Kaleidoscope/HostOS-select.h>
-
-// Support for entering unicode characters
-#include <Kaleidoscope-Unicode.h>
-
-// Custom key definitions
-#include "key_defs_custom.h"
-
 
 /** This 'enum' is a list of all the macros used by the Model 01's firmware
   * The names aren't particularly important. What is important is that each
@@ -84,9 +74,7 @@
   */
 
 enum { MACRO_VERSION_INFO,
-       MACRO_ANY,
-       MACRO_ENDASH,
-       MACRO_EMDASH
+       MACRO_ANY
      };
 
 
@@ -135,11 +123,8 @@ enum { MACRO_VERSION_INFO,
 
 enum {
   ANISHTRO,
-  SHIFT,
   SYMBOL,
-  SHIFT_SYMBOL,
   SPECIAL,
-  SHIFT_SPECIAL,
   QWERTY,
   NUMPAD,
   FUNCTION
@@ -153,96 +138,50 @@ enum {
 const Key keymaps[][ROWS][COLS] PROGMEM = {
 
   [ANISHTRO] = KEYMAP_STACKED
-  (Key_LeftShift, Key_EAcute, Key_LeftAlt, Key_LeftControl, ShiftToLayer(SHIFT), Key_LeftGui, Key_PageUp,
-   Key_RightDoubleQuoteMark, Key_Q, Key_L, Key_U, Key_C, Key_J, Key_PageDown,
+  // (Key_PcApplication,
+  (ShiftToLayer(SPECIAL), Key_Backtick, Key_LeftAlt, Key_LeftControl, Key_LeftShift, Key_LeftGui, Key_PageUp,
+   Key_KeypadSubtract, Key_Q, Key_L, Key_U, Key_C, Key_J, Key_PageDown,
    Key_Tab, Key_A, Key_N, Key_I, Key_S, Key_V,
-   Key_ADiaeresis, Key_Slash, Key_Question, Key_Y, Key_G, Key_X, Key_DownArrow,
+   Key_Quote, Key_KeypadDivide, Key_F20, Key_Y, Key_G, Key_X, Key_DownArrow,
    Key_RightArrow, Key_E, ShiftToLayer(SYMBOL), Key_Backspace,
    // ShiftToLayer(SPECIAL),
    XXX,
 
-   Key_ScrollLock, Key_RightGui, ShiftToLayer(SHIFT), Key_RightControl, Key_LeftAlt, Key_ARing, Key_PcApplication,
-   Key_Delete, Key_K, Key_P, Key_M, Key_W, Key_Minus, Key_RightSingleQuoteMark,
+   Key_Pause, Key_RightGui, Key_RightShift, Key_RightControl, Key_LeftAlt, Key_LeftBracket, Key_PcApplication,
+   Key_Delete, Key_K, Key_P, Key_M, Key_W, Key_Minus, Key_KeypadAdd,
    /* none */ Key_B, Key_H, Key_T, Key_R, Key_O, Key_Escape,
-   Key_UpArrow, Key_Z, Key_F, Key_D, Key_Period, Key_Comma, Key_ODiaeresis,
+   Key_UpArrow, Key_Z, Key_F, Key_D, Key_Period, Key_Comma, Key_Semicolon,
    Key_Enter, ShiftToLayer(SYMBOL), Key_Spacebar, Key_LeftArrow,
    // ShiftToLayer(SPECIAL)),
    XXX),
 
-  [SHIFT] = KEYMAP_STACKED
-  (Key_RightShift, LSHIFT(Key_EAcute), ___, ___, ___, ___, LSHIFT(Key_PageUp),
-   Key_LeftDoubleQuoteMark, LSHIFT(Key_Q), LSHIFT(Key_L), LSHIFT(Key_U), LSHIFT(Key_C), LSHIFT(Key_J), LSHIFT(Key_PageDown),
-   LSHIFT(Key_Tab), LSHIFT(Key_A), LSHIFT(Key_N), LSHIFT(Key_I), LSHIFT(Key_S), LSHIFT(Key_V),
-   LSHIFT(Key_ADiaeresis), Key_Backslash, Key_Exclamation, LSHIFT(Key_Y), LSHIFT(Key_G), LSHIFT(Key_X), LSHIFT(Key_DownArrow),
-   LSHIFT(Key_RightArrow), LSHIFT(Key_E), ShiftToLayer(SHIFT_SYMBOL), LSHIFT(Key_Backspace),
-   // ShiftToLayer(SHIFT_SPECIAL),
-   XXX,
-
-   LSHIFT(Key_ScrollLock), ___, ___, ___, ___, LSHIFT(Key_ARing), LSHIFT(Key_PcApplication),
-   LSHIFT(Key_Delete), LSHIFT(Key_K), LSHIFT(Key_P), LSHIFT(Key_M), LSHIFT(Key_W), LSHIFT(Key_Minus), Key_LeftSingleQuoteMark,
-   /* none */ LSHIFT(Key_B), LSHIFT(Key_H), LSHIFT(Key_T), LSHIFT(Key_R), LSHIFT(Key_O), LSHIFT(Key_Escape),
-   LSHIFT(Key_UpArrow), LSHIFT(Key_Z), LSHIFT(Key_F), LSHIFT(Key_D), Key_Colon, Key_Semicolon, LSHIFT(Key_ODiaeresis),
-   LSHIFT(Key_Enter), ShiftToLayer(SHIFT_SYMBOL), LSHIFT(Key_Spacebar), LSHIFT(Key_LeftArrow),
-   // ShiftToLayer(SHIFT_SPECIAL)),
-   XXX),
-
   [SYMBOL] =  KEYMAP_STACKED
-  (LockLayer(QWERTY), ___, ___, ___, ShiftToLayer(SHIFT_SYMBOL), ___, Key_LEDEffectNext,
-   ___, Key_LessThan, Key_GreaterThan, Key_LeftCurlyBracket, Key_RightCurlyBracket, Key_Asterisk, Key_Insert,
-   Key_Ampersand, Key_LeftBracket, Key_RightBracket, Key_LeftParen, Key_RightParen, Key_At,
-   ___, Key_Tilde, Key_Backtick, Key_Quote, Key_DoubleQuote, M(MACRO_EMDASH), Key_PageDown,
-   Key_End, Key_Dollar, ___, ___,
+  (LockLayer(QWERTY), ___, ___, ___, ___, ___, Key_LEDEffectNext,
+   ___, Key_NonUsBackslashAndPipe, Key_F13, Key_Keypad7, Key_Keypad8, Key_KeypadMultiply, Key_Insert,
+   Key_F15, Key_Keypad1, Key_Keypad2, Key_Keypad4, Key_Keypad5, Key_F16,
+   ___, Key_F17, Key_Equals, Key_Backslash, Key_F18, Key_F19, Key_PageDown,
+   Key_End, Key_Keypad0, ___, ___,
    XXX,
 
-   M(MACRO_ANY), ___, ShiftToLayer(SHIFT_SYMBOL), ___, ___, ___, LockLayer(NUMPAD),
-   Key_PrintScreen, Key_Pound, Key_7, Key_8, Key_9, Key_Caret, ___,
-   /* none */ Key_Plus, Key_4, Key_5, Key_6, Key_Equals, Key_Pipe,
-   Key_PageUp, M(MACRO_ENDASH), Key_1, Key_2, Key_3, Key_Percent, ___,
+   M(MACRO_ANY), ___, ___, ___, ___, ___, LockLayer(NUMPAD),
+   Key_PrintScreen, Key_F14, Key_7, Key_8, Key_9, Key_Keypad9, ___,
+   /* none */ Key_Minus, Key_4, Key_5, Key_6, Key_KeypadEquals, Key_Keypad6,
+   Key_PageUp, Key_RightBracket, Key_1, Key_2, Key_3, Key_Keypad3, ___,
    ___, ___, Key_0, Key_Home,
    XXX),
 
-  [SHIFT_SYMBOL] =  KEYMAP_STACKED
-  (___, ___, ___, ___, ___, ___, ___,
-   ___, ___, ___, ___, ___, ___, ___,
-   ___, ___, ___, ___, ___, ___,
-   ___, ___, ___, ___, ___, ___, ___,
-   LSHIFT(Key_End), ___, LSHIFT(Key_Backspace), LSHIFT(Key_PageDown),
-   ___,
-
-   ___, ___, ___, ___, ___, ___, ___,
-   LSHIFT(Key_PrintScreen), ___, LSHIFT(Key_7), LSHIFT(Key_8), LSHIFT(Key_9), ___, ___,
-   /* none */ ___, LSHIFT(Key_4), LSHIFT(Key_5), LSHIFT(Key_6), ___, ___,
-   LSHIFT(Key_PageUp), ___, LSHIFT(Key_1), LSHIFT(Key_2), LSHIFT(Key_3), ___, ___,
-   ___, LSHIFT(Key_Enter), LSHIFT(Key_0), LSHIFT(Key_Home),
-   ___),
-
   [SPECIAL] =  KEYMAP_STACKED
-  (Key_mouseWarpNW, Key_mouseWarpNE, ___, ___, ShiftToLayer(SHIFT_SPECIAL), ___, XXX,
+  (Key_mouseWarpNW, Key_mouseWarpNE, ___, ___, ___, ___, XXX,
    Key_mouseWarpSW, Key_mouseWarpSE, Key_mouseUpL, Key_mouseUp, Key_mouseUpR, Key_mouseWarpEnd, XXX,
    Key_mouseScrollL, Key_mouseScrollUp, Key_mouseL, Key_mouseBtnL, Key_mouseR, Key_mouseBtnR,
    Key_mouseScrollR, Key_mouseScrollDn, Key_mouseDnL, Key_mouseDn, Key_mouseDnR, Key_mouseBtnM, XXX,
    ___, ___, ___, ___,
    ___,
 
-   XXX, ___, ShiftToLayer(SHIFT_SPECIAL), ___, ___, XXX, XXX,
+   XXX, ___, ___, ___, ___, XXX, XXX,
    XXX, XXX, Key_F7, Key_F8, Key_F9, Key_F12, XXX,
    /* none */ XXX, Key_F4, Key_F5, Key_F6, Key_F11, XXX,
    XXX, XXX, Key_F1, Key_F2, Key_F3, Key_F10, XXX,
-   ___, ___, ___, ___,
-   ___),
-
-  [SHIFT_SPECIAL] =  KEYMAP_STACKED
-  (___, ___, ___, ___, ___, ___, ___,
-   ___, ___, ___, ___, ___, ___, ___,
-   ___, ___, ___, ___, ___, ___,
-   ___, ___, ___, ___, ___, ___, ___,
-   ___, ___, ___, ___,
-   ___,
-
-   ___, ___, ___, ___, ___, ___, ___,
-   ___, ___, LSHIFT(Key_F7), LSHIFT(Key_F8), LSHIFT(Key_F9), LSHIFT(Key_F12), ___,
-   /* none */ ___, LSHIFT(Key_F4), LSHIFT(Key_F5), LSHIFT(Key_F6), LSHIFT(Key_F11), ___,
-   ___, ___, LSHIFT(Key_F1), LSHIFT(Key_F2), LSHIFT(Key_F3), LSHIFT(Key_F10), ___,
    ___, ___, ___, ___,
    ___),
 
@@ -326,15 +265,6 @@ static void anyKeyMacro(uint8_t keyState) {
     kaleidoscope::hid::pressKey(lastKey);
 }
 
-/** Input a unicode character.
- */
-
-static void unicode(uint32_t character, uint8_t keyState) {
-  if (keyToggledOn(keyState)) {
-    Unicode.type(character);
-  }
-}
-
 
 /** macroAction dispatches keymap events that are tied to a macro
     to that macro. It takes two uint8_t parameters.
@@ -357,14 +287,6 @@ const macro_t *macroAction(uint8_t macroIndex, uint8_t keyState) {
 
   case MACRO_ANY:
     anyKeyMacro(keyState);
-    break;
-
-  case MACRO_ENDASH:
-    unicode(0x2013, keyState);
-    break;
-
-  case MACRO_EMDASH:
-    unicode(0x2014, keyState);
     break;
   }
   return MACRO_NONE;
@@ -490,10 +412,7 @@ void setup() {
 
     // The HostPowerManagement plugin enables waking up the host from suspend,
     // and allows us to turn LEDs off when it goes to sleep.
-    &HostPowerManagement,
-
-    // Unicode character input
-    &Unicode
+    &HostPowerManagement
   );
 
   // Register the loop hook defined above.

@@ -2,16 +2,7 @@
 
 The default firmware for the Keyboardio Model 01, customized by @lydell.
 
-This is an implementation of [lydell/keyboard](https://github.com/lydell/keyboard) with a few tweaks.
-
-The firmware works as intended if you set your OS to use the en-US QWERTY International layout with ScrollLock as the Compose key and right alt as the Alternative Characters Key. I’ve only tested this on Linux.
-
-Running the following should work on Ubuntu:
-
-```
-gsettings set org.gnome.desktop.input-sources sources "[('xkb', 'us+altgr-intl')]"
-gsettings set org.gnome.desktop.input-sources xkb-options "['compose:sclk', 'lv3:ralt_switch']"
-```
+This is supposed to be used with [lydell/keyboard](https://github.com/lydell/keyboard) (instead of the TECK firmware).
 
 Original README below.
 
