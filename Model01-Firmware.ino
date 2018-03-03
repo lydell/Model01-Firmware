@@ -148,7 +148,7 @@ const Key keymaps[][ROWS][COLS] PROGMEM = {
    XXX,
 
    Key_Pause, Key_RightGui, Key_RightShift, Key_RightControl, Key_LeftAlt, Key_LeftBracket, Key_PcApplication,
-   Key_Delete, Key_K, Key_P, Key_M, Key_W, Key_Minus, Key_KeypadAdd,
+   Key_Delete, Key_K, Key_P, Key_M, Key_W, Key_Slash, Key_KeypadAdd,
    /* none */ Key_B, Key_H, Key_T, Key_R, Key_O, Key_Escape,
    Key_UpArrow, Key_Z, Key_F, Key_D, Key_Period, Key_Comma, Key_Semicolon,
    Key_Enter, ShiftToLayer(SYMBOL), Key_Spacebar, Key_LeftArrow,
